@@ -44,12 +44,21 @@ jobs:
 
       - name: Workflow Dispatch
         run: |
-          gh api \
-          --method POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          -H "Authorization: token ${{secrets.PAT_REMOTE_TRIGGER}}"
-          repos/Dat-Nguyen-Org/MyProject/dispatches \
-          -f 'event_type=ci' -F "client_payload[unit]=false" -F "client_payload[integration]=true"
+          curl -X POST https://api.github.com/repos/Dat-Nguyen-Org/MyProject/dispatches \
+          -H "Authorization: token ${{ secrets.PAT_REMOTE_TRIGGER }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{
+                "event_type": "ci",
+                "client_payload": {
+                  "content": "Hello World"
+                }
+              }'
+          # gh api \
+          # --method POST \
+          # -H "Accept: application/vnd.github+json" \
+          # -H "X-GitHub-Api-Version: 2022-11-28" \
+          # -H "Authorization: token ${{secrets.PAT_REMOTE_TRIGGER}}"
+          # repos/Dat-Nguyen-Org/MyProject/dispatches \
+          # -f 'event_type=ci' -F "client_payload[unit]=false" -F "client_payload[integration]=true"
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_REMOTE_TRIGGER }}
