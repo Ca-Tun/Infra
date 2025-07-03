@@ -26,6 +26,7 @@ on:
 jobs:
   trigger-remote-workflow:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       # - name: Checkout Infra Repo
       #   uses: actions/checkout@v3
@@ -45,7 +46,7 @@ jobs:
       - name: Workflow Dispatch
         run: |
           curl -X POST https://api.github.com/repos/Dat-Nguyen-Org/MyProject/dispatches \
-          -H "Authorization: token ${{ secrets.RDPAT }}" \
+          -H "Authorization: token ${{ secrets.PAT_REMOTE_TRIGGER }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
                 "event_type": "ci",
@@ -54,4 +55,4 @@ jobs:
                 }
               }'
         env:
-          GITHUB_TOKEN: ${{ secrets.RDPAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT_REMOTE_TRIGGER }}
