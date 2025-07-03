@@ -45,7 +45,7 @@ jobs:
       - name: Workflow Dispatch
         run: |
           curl -X POST https://api.github.com/repos/Dat-Nguyen-Org/MyProject/dispatches \
-          -H "Authorization: token ${{secrets.PAT_REMOTE_TRIGGER}}" \
+          -H "Authorization: bearer ${{secrets.PAT_REMOTE_TRIGGER}}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
                 "event_type": "ci",
