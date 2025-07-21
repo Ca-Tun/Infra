@@ -9,9 +9,9 @@ on:
 env:
   tf_action: 'apply' # plan / apply / destroy
   tf_autoapprove: '-auto-approve' # -auto-approve / empty
-  ppln_action: 'all' # all / keycloak / backend / frontend / mailcatcher / empty
+  ppln_action: 'secrets' # all / keycloak / backend / frontend / mailcatcher / empty / secrets
 
-  tg_action: 'run-all' # {empty string} / run-all 
+  tg_action: 'secrets' # {empty string} / run-all 
   tg_working_dir: 'terragrunt/'
   tg_resource_dir: '' # include "/" as prefix when specific folder is used: "/resource_group"; "/container/container_group"
 
