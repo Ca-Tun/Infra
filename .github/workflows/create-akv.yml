@@ -56,6 +56,6 @@ jobs:
         brew upgrade
 
     - name: Creating AKV
-      if: ${{ env.ppln_action == 'keyvault' || env.ppln_action == 'all' }}
+      if: ${{ env.ppln_action == 'secrets' || env.ppln_action == 'all' }}
       run: terragrunt ${{ env.tg_action }} ${{ env.tf_action }} --terragrunt-non-interactive
-      working-directory: "${{env.tg_working_dir}}${{env.tf_environment}}/keycloak_configuration"
+      working-directory: "${{env.tg_working_dir}}${{ matrix.env }}/keyvault/secrets"
