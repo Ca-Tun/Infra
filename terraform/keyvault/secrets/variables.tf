@@ -89,3 +89,22 @@ variable "certificate_permissions" {
   type        = list(string)
   default     = []
 }
+
+# New: Variables for secret names
+variable "secret_name_user" {
+  description = "The name for the MY_APP_USER secret."
+  type        = string
+  default     = "MY-APP-USER"
+}
+
+variable "secret_name_password" {
+  description = "The name for the MY_APP_PASSWORD secret."
+  type        = string
+  default     = "MY-APP-PASSWORD"
+}
+
+variable "secret_name_url" {
+  description = "The name for the MY_APP_URL secret."
+  type        = string
+  default     = "MY-APP-URL"
+}
