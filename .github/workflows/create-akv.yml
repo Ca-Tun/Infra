@@ -1,0 +1,61 @@
+name: 'Create AKV for Dev and Prod'
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+env:
+  tf_action: 'apply' # plan / apply / destroy
+  tf_autoapprove: '-auto-approve' # -auto-approve / empty
+  ppln_action: 'all' # all / keycloak / backend / frontend / mailcatcher / empty
+
+  tg_action: 'run-all' # {empty string} / run-all 
+  tg_working_dir: 'MyProject1/terragrunt/'
+  tg_resource_dir: '' # include "/" as prefix when specific folder is used: "/resource_group"; "/container/container_group"
+
+  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
+
+  TF_STORAGE_ACCESS_KEY: ${{ secrets.TF_STORAGE_ACCESS_KEY }}
+  TF_STORAGE_ACCOUNT_NAME: ${{ secrets.TF_STORAGE_ACCOUNT_NAME }}
+  TF_STORAGE_CONTAINER_NAME: ${{ secrets.TF_STORAGE_CONTAINER_NAME }}
+
+jobs:
+  create-akv:
+    name: 'Creating AKV for ${{ matrix.env }}'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [dev,prod]
+    environment: ${{ matrix.env }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
+
+    steps:
+    - name: Setup Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master        
+      
+    - name: Setup Terraform v1.10.5
+      uses: hashicorp/setup-Terraform@v3
+      with:
+        terraform_version: 1.10.5
+        terraform_wrapper: false
+      
+    - name: Setup terragrunt
+      run: |
+        brew update
+        brew install terragrunt
+        brew upgrade
+
+    - name: Creating AKV
+      if: ${{ env.ppln_action == 'keyvault' || env.ppln_action == 'all' }}
+      run: terragrunt ${{ env.tg_action }} ${{ env.tf_action }} --terragrunt-non-interactive
+      working-directory: "${{env.tg_working_dir}}${{env.tf_environment}}/keycloak_configuration"
