@@ -81,7 +81,7 @@ variable "key_permissions" {
 variable "secret_permissions" {
   description = "List of secret permissions to grant."
   type        = list(string)
-  default     = ["Get", "List"]
+  default     = ["Get", "List", "Set"]
 }
 
 variable "certificate_permissions" {
