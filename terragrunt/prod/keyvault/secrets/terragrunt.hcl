@@ -20,4 +20,8 @@ inputs = {
   tags = {
     environment = "prod"
   }
+  # New: Secret names for dev
+  secret_name_user            = "MY-APP-USER" # Example: differentiating names per env
+  secret_name_password        = "MY-APP-PASSWORD"
+  secret_name_url             = "MY-APP-URL"
 }
