@@ -11,7 +11,7 @@ env:
   tf_autoapprove: '-auto-approve' # -auto-approve / empty
   ppln_action: 'secrets' # all / keycloak / backend / frontend / mailcatcher / empty / secrets
 
-  tg_action: 'run secrets' # {empty string} / run-all 
+  tg_action: 'run-secrets' # {empty string} / run-all 
   tg_working_dir: 'terragrunt/'
   tg_resource_dir: '' # include "/" as prefix when specific folder is used: "/resource_group"; "/container/container_group"
 
@@ -60,5 +60,5 @@ jobs:
 
     - name: Creating AKV
       if: ${{ env.ppln_action == 'secrets' || env.ppln_action == 'all' }}
-      run: terragrunt ${{ env.tg_action }} ${{ env.tf_action }} --terragrunt-non-interactive
+      run: terragrunt ${{ env.tg_action }} ${{ env.tf_action }} --non-interactive
       working-directory: "${{env.tg_working_dir}}${{ matrix.env }}/keyvault/secrets"
