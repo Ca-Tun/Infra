@@ -1,9 +1,9 @@
 output "key_vault_id" {
   description = "The ID of the Key Vault."
-  value       = azurerm_key_vault.kv-sea-dat-dev.id
+  value       = azurerm_key_vault.kv_sea_dat_dev.id
 }
 
 output "key_vault_uri" {
   description = "The URI of the Key Vault."
-  value       = azurerm_key_vault.kv-sea-dat-dev.vault_uri
+  value       = azurerm_key_vault.kv_sea_dat_dev.vault_uri
 }
