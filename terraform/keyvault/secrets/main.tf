@@ -40,5 +40,32 @@ resource "azurerm_key_vault_access_policy" "example" {
 #  certificate_permissions = var.certificate_permissions
 }
 
+# New: Secret for MY_APP_USER
+resource "azurerm_key_vault_secret" "my_app_user" {
+  name         = var.secret_name_user
+  value        = "" # Initially empty
+  key_vault_id = azurerm_key_vault.main.id
+  content_type = "text/plain" # Or application/json, etc.
+  tags         = var.tags # Inherit tags from Key Vault
+}
+
+# New: Secret for MY_APP_PASSWORD
+resource "azurerm_key_vault_secret" "my_app_password" {
+  name         = var.secret_name_password
+  value        = "" # Initially empty
+  key_vault_id = azurerm_key_vault.main.id
+  content_type = "text/plain"
+  tags         = var.tags
+}
+
+# New: Secret for MY_APP_URL
+resource "azurerm_key_vault_secret" "my_app_url" {
+  name         = var.secret_name_url
+  value        = "" # Initially empty
+  key_vault_id = azurerm_key_vault.main.id
+  content_type = "text/plain"
+  tags         = var.tags
+}
+
 data "azurerm_client_config" "current" {}
 
