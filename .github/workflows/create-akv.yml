@@ -31,6 +31,7 @@ jobs:
     strategy:
       matrix:
         env: [dev,prod]
+      fail-fast: false
     environment: ${{ matrix.env }}
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
