@@ -1,5 +1,6 @@
 locals {
   tenant_id = get_env("ARM_TENANT_ID")
+  subscription_id = get_env("ARM_SUBSCRIPTION_ID")
 }
 generate "versions" {
   path = "versions.tf"
@@ -29,7 +30,8 @@ generate "provider" {
   contents = <<EOF
 provider "azurerm" { 
   features {}
-  subscription_id = "2b69f314-9a87-4be7-aafd-b422c84d7b11"
+  subscription_id = local.subscription_id
+  tenant_id       = local.tenant_id
 }
 EOF
 }
