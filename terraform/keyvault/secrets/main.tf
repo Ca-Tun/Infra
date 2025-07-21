@@ -31,7 +31,7 @@ resource "azurerm_key_vault" "kv_sea_dat_dev" {
 
 # Granting an access policy to a service principal sp-GithubActions
 # Passing in object IDs and permissions from Terragrunt.
-resource "azurerm_key_vault_access_policy" "example" {
+resource "azurerm_key_vault_access_policy" "akv_access_policy" {
   key_vault_id            = azurerm_key_vault.kv_sea_dat_dev.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = var.access_policy_object_id # The object ID of the sp-GithubActions
@@ -47,6 +47,7 @@ resource "azurerm_key_vault_secret" "my_app_user" {
   key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain" # Or application/json, etc.
   tags         = var.tags # Inherit tags from Key Vault
+  depends_on = [azurerm_key_vault_access_policy.akv_access_policy] # Ensure access policy is created before secret
 }
 
 # New: Secret for MY_APP_PASSWORD
@@ -56,6 +57,7 @@ resource "azurerm_key_vault_secret" "my_app_password" {
   key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain"
   tags         = var.tags
+  depends_on = [azurerm_key_vault_access_policy.akv_access_policy] # Ensure access policy is created before secret
 }
 
 # New: Secret for MY_APP_URL
@@ -65,6 +67,7 @@ resource "azurerm_key_vault_secret" "my_app_url" {
   key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain"
   tags         = var.tags
+  depends_on = [azurerm_key_vault_access_policy.akv_access_policy] # Ensure access policy is created before secret
 }
 
 data "azurerm_client_config" "current" {}
