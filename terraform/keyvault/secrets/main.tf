@@ -21,7 +21,7 @@ resource "azurerm_key_vault" "kv-sea-dat-dev" {
 
 #  network_acls {
 #    default_action = var.network_acls_default_action
-#    bypass         = "AzureServices" # Typically, you'd want Azure Services to bypass ACLs
+#    bypass         = "AzureServices"
 #    ip_rules       = var.ip_rules
 #    # Add virtual_network_subnet_ids if you are using private endpoints or service endpoints
 #  }
@@ -29,15 +29,14 @@ resource "azurerm_key_vault" "kv-sea-dat-dev" {
   tags = var.tags
 }
 
-# Example: Granting an access policy to a user/service principal
-# You'll likely want to make this more dynamic, perhaps by passing in object IDs
-# and permissions from Terragrunt.
+# Granting an access policy to a service principal sp-GithubActions
+# Passing in object IDs and permissions from Terragrunt.
 resource "azurerm_key_vault_access_policy" "example" {
   key_vault_id            = azurerm_key_vault.kv-sea-dat-dev.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = var.access_policy_object_id # The object ID of the user/SPN/managed identity
-  key_permissions         = var.key_permissions
-#  secret_permissions      = var.secret_permissions
+  object_id               = var.access_policy_object_id # The object ID of the sp-GithubActions
+#  key_permissions         = var.key_permissions
+  secret_permissions      = var.secret_permissions
 #  certificate_permissions = var.certificate_permissions
 }
 
