@@ -44,7 +44,7 @@ resource "azurerm_key_vault_access_policy" "example" {
 resource "azurerm_key_vault_secret" "my_app_user" {
   name         = var.secret_name_user
   value        = "" # Initially empty
-  key_vault_id = azurerm_key_vault.main.id
+  key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain" # Or application/json, etc.
   tags         = var.tags # Inherit tags from Key Vault
 }
@@ -53,7 +53,7 @@ resource "azurerm_key_vault_secret" "my_app_user" {
 resource "azurerm_key_vault_secret" "my_app_password" {
   name         = var.secret_name_password
   value        = "" # Initially empty
-  key_vault_id = azurerm_key_vault.main.id
+  key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain"
   tags         = var.tags
 }
@@ -62,7 +62,7 @@ resource "azurerm_key_vault_secret" "my_app_password" {
 resource "azurerm_key_vault_secret" "my_app_url" {
   name         = var.secret_name_url
   value        = "" # Initially empty
-  key_vault_id = azurerm_key_vault.main.id
+  key_vault_id = azurerm_key_vault.kv_sea_dat_dev.id
   content_type = "text/plain"
   tags         = var.tags
 }
