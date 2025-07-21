@@ -5,9 +5,18 @@ on:
   #   branches:
   #     - main
   workflow_dispatch:
+    inputs:
+      tf_action:
+        description: 'Terraform action to perform'
+        required: true
+        default: 'apply'
+        options:
+          - plan
+          - apply
+          - destroy
 
 env:
-  tf_action: 'apply' # plan / apply / destroy
+  tf_action: ${{ inputs.tf_action }} # plan / apply / destroy
   tf_autoapprove: '-auto-approve' # -auto-approve / empty
   ppln_action: 'all' # all / keycloak / backend / frontend / mailcatcher / empty / secrets
 
