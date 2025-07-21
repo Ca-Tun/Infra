@@ -29,6 +29,7 @@ generate "provider" {
   contents = <<EOF
 provider "azurerm" { 
   features {}
+  subscription_id = "2b69f314-9a87-4be7-aafd-b422c84d7b11"
 }
 EOF
 }
