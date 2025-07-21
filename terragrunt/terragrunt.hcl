@@ -33,12 +33,12 @@ provider "azurerm" {
 EOF
 }
 
-#remote_state {
-#  backend = "azurerm"
-#  config = {
-#    key                  = "${path_relative_to_include()}/terraform.tfstate"
-#    storage_account_name = get_env("TF_STORAGE_ACCOUNT_NAME")
-#    container_name       = get_env("TF_STORAGE_CONTAINER_NAME")
-#    access_key           = get_env("TF_STORAGE_ACCESS_KEY")
-#  }
-#}
+remote_state {
+  backend = "azurerm"
+  config = {
+    key                  = "${path_relative_to_include()}/terraform.tfstate"
+    storage_account_name = get_env("TF_STORAGE_ACCOUNT_NAME")
+    container_name       = get_env("TF_STORAGE_CONTAINER_NAME")
+    access_key           = get_env("TF_STORAGE_ACCESS_KEY")
+  }
+}
