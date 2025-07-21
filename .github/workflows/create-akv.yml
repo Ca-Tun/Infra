@@ -12,7 +12,7 @@ env:
   ppln_action: 'all' # all / keycloak / backend / frontend / mailcatcher / empty
 
   tg_action: 'run-all' # {empty string} / run-all 
-  tg_working_dir: 'MyProject1/terragrunt/'
+  tg_working_dir: 'terragrunt/'
   tg_resource_dir: '' # include "/" as prefix when specific folder is used: "/resource_group"; "/container/container_group"
 
   ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
