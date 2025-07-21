@@ -2,15 +2,15 @@ terraform {
   backend "azurerm" {}
 }
 
-resource "azurerm_resource_group" "rg-default-dev" {
+resource "azurerm_resource_group" "rg_default_dev" {
   name     = var.resource_group_name
   location = var.location
 }
 
-resource "azurerm_key_vault" "kv-sea-dat-dev" {
+resource "azurerm_key_vault" "kv_sea_dat_dev" {
   name                            = var.key_vault_name
-  location                        = azurerm_resource_group.rg-default-dev.location
-  resource_group_name             = azurerm_resource_group.rg-default-dev.name
+  location                        = azurerm_resource_group.rg_default_dev.location
+  resource_group_name             = azurerm_resource_group.rg_default_dev.name
   tenant_id                       = data.azurerm_client_config.current.tenant_id
   sku_name                        = var.sku_name
   soft_delete_retention_days      = var.soft_delete_retention_days
@@ -32,7 +32,7 @@ resource "azurerm_key_vault" "kv-sea-dat-dev" {
 # Granting an access policy to a service principal sp-GithubActions
 # Passing in object IDs and permissions from Terragrunt.
 resource "azurerm_key_vault_access_policy" "example" {
-  key_vault_id            = azurerm_key_vault.kv-sea-dat-dev.id
+  key_vault_id            = azurerm_key_vault.kv_sea_dat_dev.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = var.access_policy_object_id # The object ID of the sp-GithubActions
 #  key_permissions         = var.key_permissions
