@@ -61,11 +61,7 @@ jobs:
     - name: Login Azure
       uses: azure/login@v1
       with:
-        AZURE_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        AZURE_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        AZURE_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        AZURE_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
+        creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
     - name: Creating AKV
       if: ${{ env.ppln_action == 'secrets' || env.ppln_action == 'all' }}
       run: terragrunt ${{ env.tg_action }} ${{ env.tf_action }} --non-interactive
