@@ -16,7 +16,7 @@ inputs = {
   network_acls_default_action = "Allow" # More lenient for dev
   ip_rules                    = ["YOUR_DEV_IP_ADDRESS/32"] # Add your dev IP
   access_policy_object_id     = "226120fa-47d7-4311-9942-f459938531b1" # Get from Azure AD (e.g., your own user ID)
-  secret_permissions          = ["Get", "List", "Set", "Delete"]
+  secret_permissions          = ["Get", "List", "Set", "Delete", "Purge"]
   tags = {
     environment = "dev"
   }
